@@ -19,7 +19,8 @@ class endereco(models.Model):
     numero = models.CharField(max_length=5)
     complemento = models.CharField(max_length=100)
 
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class pessoa(models.Model):
     id = models.AutoField(primary_key=True)
@@ -30,10 +31,16 @@ class pessoa(models.Model):
     endereco = models.ForeignKey(endereco, on_delete=models.CASCADE)
     usuario = models.ForeignKey(user, on_delete=models.CASCADE)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 class professor(models.Model):
     id = models.AutoField(primary_key=True)
     pessoa = models.ForeignKey(pessoa, on_delete=models.CASCADE)
     matricula = models.CharField(max_length=100)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class disciplina(models.Model):
     id = models.AutoField(primary_key=True)
@@ -41,10 +48,16 @@ class disciplina(models.Model):
     carga_horaria = models.IntegerField()
     professor = models.ForeignKey(professor, on_delete=models.CASCADE)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 class aluno(models.Model):
     id = models.AutoField(primary_key=True)
     pessoa = models.ForeignKey(pessoa, on_delete=models.CASCADE)
     matricula = models.CharField(max_length=100)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class nota(models.Model):
     id = models.AutoField(primary_key=True)
@@ -54,27 +67,45 @@ class nota(models.Model):
     aluno = models.ForeignKey(aluno, on_delete=models.CASCADE)
     disciplina = models.ForeignKey(disciplina, on_delete=models.CASCADE)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 class turma(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=100)
     semestre = models.IntegerField()
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 class turma_tem_disciplina(models.Model):
     id = models.AutoField(primary_key=True)
     disciplina = models.ForeignKey(disciplina, on_delete=models.CASCADE)
     turma = models.ForeignKey(turma, on_delete=models.CASCADE)
+    data_e_hora = models.DateTimeField()
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class turma_tem_aluno(models.Model):
     id = models.AutoField(primary_key=True)
     aluno = models.ForeignKey(aluno, on_delete=models.CASCADE)
     turma = models.ForeignKey(turma, on_delete=models.CASCADE)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 class curso(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=100)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class turma_tem_curso(models.Model):
     id = models.AutoField(primary_key=True)
     turma = models.ForeignKey(turma, on_delete=models.CASCADE)
     curso = models.ForeignKey(curso, on_delete=models.CASCADE)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
