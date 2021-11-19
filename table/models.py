@@ -25,7 +25,6 @@ class endereco(models.Model):
 class pessoa(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=200)
-    email = models.CharField(max_length=100)
     cpf = models.CharField(max_length=14)
     nascimento = models.DateField()
     endereco = models.ForeignKey(endereco, on_delete=models.CASCADE)

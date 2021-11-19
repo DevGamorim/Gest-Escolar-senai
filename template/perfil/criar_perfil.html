@@ -7,9 +7,27 @@
 {% block content %}
     <h2>Cadastro</h2>
     <form method="post">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button class="btn btn-success" type="submit">Cadastrar</button>
+        <div class="container">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="username">
+            <input type="text" name="first_name" placeholder="first_name">
+            <input type="text" name="last_name" placeholder="last_name">
+            <input type="email" name="email" placeholder="email">
+            <select name="privilegio">
+                <option value="adm">Administração</option>
+                <option value="aluno">Aluno</option>
+                <option value="prof">Professor</option>
+            </select>
+            <input type="password" name="password" placeholder="senha">
+        </div>
+        <div>
+            <input type="text" maxlength="100" name="bairro" placeholder="bairro">
+            <input type="text" maxlength="100" name="rua" placeholder="rua">
+            <input type="number" maxlength="5" name="numero" placeholder="numero">
+            <input type="text" maxlength="100" name="complemento" placeholder="complemento">
+        </div>
+        <input type="submit" value="salvar">
+        
     </form>
     
 {% endblock %}
