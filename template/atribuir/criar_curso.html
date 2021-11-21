@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title%}Cadastro{% endblock %}
+{% block content %}
+<h2>Cadastro</h2>
+<form method="post">
+  <div class="container">
+    {% csrf_token %}
+    <input type="text" name="nome" placeholder="nome curso">
+    <select name="tipo" placeholder="Tipo de curso">
+      <option value="1">Profissionalizante</option>
+      <option value="2">Tecnico</option>
+      <option value="3">Graduação</option>
+    </select>
+
+  <input type="submit" value="salvar" />
+  </div>
+</form>
+{% endblock %}

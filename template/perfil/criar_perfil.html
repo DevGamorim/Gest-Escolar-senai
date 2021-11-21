@@ -1,44 +1,46 @@
 {% extends 'base.html' %}
-
 {% load crispy_forms_tags %}
-
-{% block title %}Cadastro{% endblock %}
-
+{% block title%}Cadastro{% endblock %}
 {% block content %}
-    <h2>Cadastro</h2>
-    <form method="post">
-        <div class="container">
-            {% csrf_token %}
-            <input type="text" name="username" placeholder="username">
-            <input type="text" name="first_name" placeholder="first_name">
-            <input type="text" name="last_name" placeholder="last_name">
-            <input type="email" name="email" placeholder="email">
-            <select name="privilegio">
-                <option value="adm">Administração</option>
-                <option value="aluno">Aluno</option>
-                <option value="prof">Professor</option>
-            </select>
-            <input type="password" name="password" placeholder="senha">
-        </div>
-        <div>
-            <input type="text" maxlength="100" name="bairro" placeholder="bairro">
-            <input type="text" maxlength="100" name="rua" placeholder="rua">
-            <input type="number" maxlength="5" name="numero" placeholder="numero">
-            <input type="text" maxlength="100" name="complemento" placeholder="complemento">
-        </div>
-        <div>
-            <input type="text" maxlength="100" name="bairro" placeholder="bairro">
-            <input type="text" maxlength="100" name="rua" placeholder="rua">
-            <input type="number" maxlength="5" name="numero" placeholder="numero">
-            <input type="text" maxlength="100" name="complemento" placeholder="complemento">
-        </div>
-        <div>
-            <input type="text" maxlength="14" name="cpf" placeholder="cpf">
-            <input type="text" maxlength="100" name="nascimento" placeholder="nascimento">
-        </div>
-        
-        <input type="submit" value="salvar">
-        
-    </form>
+<h2>Cadastro</h2>
+<form method="post">
+  <div class="container">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="username" />
+    <input type="text" name="first_name" placeholder="first_name" />
+    <input type="text" name="last_name" placeholder="last_name" />
+    <input type="email" name="email" placeholder="email" />
+    <input type="password" name="password" placeholder="senha" />
+    <select name="privilegio">
+      <option value="adm">Administração</option>
+      <option value="aluno">Aluno</option>
+      <option value="prof">Professor</option>
+    </select>
+    <input type="text" name="matricula" placeholder="matricula" />
     
+  </div>
+  <div>
+    <input type="text" maxlength="100" name="bairro" placeholder="bairro" />
+    <input type="text" maxlength="100" name="rua" placeholder="rua" />
+    <input type="number" maxlength="5" name="numero" placeholder="numero" />
+    <input
+      type="text"
+      maxlength="100"
+      name="complemento"
+      placeholder="complemento"
+    />
+  </div>
+  <div>
+    <input type="text" maxlength="14" name="cpf" placeholder="cpf" />
+    <input
+      type="date"
+      maxlength="100"
+      name="nascimento"
+      placeholder="nascimento"
+    />
+  </div>
+
+  <input type="submit" value="salvar" />
+</form>
+
 {% endblock %}

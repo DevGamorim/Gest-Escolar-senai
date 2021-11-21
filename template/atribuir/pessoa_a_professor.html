@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title%}Cadastro{% endblock %}
+{% block content %}
+<h2>Cadastro</h2>
+<form method="post">
+  <div class="container">
+    {% csrf_token %}
+    <input type="text" name="matricula" placeholder="matricula" />
+    <select name="professor">
+      <option value=" ">----------------</option>
+      {% for prof in professor %}
+        <option value="{{prof.id}}">{{prof.first_name}} {{prof.last_name}}</option>
+      {% endfor %}
+    </select>
+
+  <input type="submit" value="salvar" />
+  </div>
+</form>
+
+{% endblock %}

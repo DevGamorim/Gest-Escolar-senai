@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title%}Cadastro{% endblock %}
+{% block content %}
+<h2>Cadastro</h2>
+<form method="post">
+  <div class="container">
+    {% csrf_token %}
+     <select name="bimestre">
+      <option value=" "> </option>
+        <option value="1">1° Bimestre</option>
+        <option value="2">2° Bimestre</option>
+        <option value="3">3° Bimestre</option>
+        <option value="4">4° Bimestre</option>
+    </select>
+    <input type="number" name="nota" placeholder="nota" />
+    <input type="number" name="falta" placeholder="falta" />
+    <select name="aluno">
+      <option value=" "> </option>
+      {% for aluno in alunos %}
+        <option value="{{aluno.id}}">{{aluno.first_name}} {{aluno.last_name}}</option>
+      {% endfor %}
+    </select>
+    <select name="disciplina">
+      <option value=" "> </option>
+      {% for disciplina in disciplinas %}
+        <option value="{{disciplina.id}}">{{disciplina.nome}}</option>
+      {% endfor %}
+    </select>
+
+  <input type="submit" value="salvar" />
+  </div>
+</form>
+{% endblock %}
