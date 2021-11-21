@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title%}Cadastro{% endblock %}
+{% block content %}
+<h2>Cadastro</h2>
+  <div class="container">
+
+    <div class="row">
+      <input class="col-sm" type="text" name="name" value="{{pessoa.nome}}" placeholder="{{pessoa.nome}}" disabled="true">
+      <input class="col-sm" type="email" name="email" value="{{pessoa.usuario.email}}" placeholder="{{pessoa.usuario.email}}" disabled="true">
+      <input class="col-sm" type="text" name="cpf" value="{{pessoa.cpf}}" placeholder="{{pessoa.cpf}}" disabled="true">
+      <input class="col-sm" type="text" name="data" value="{{pessoa.nascimento}}" placeholder="{{pessoa.nascimento}}" disabled="true">
+    </div>
+    <div class="row">      
+      <input class="col-sm" type="text" name="bairro" value="{{pessoa.endereco.bairro}}" placeholder="{{pessoa.endereco.bairro}}" disabled="true">
+      <input class="col-sm" type="text" name="rua" value="{{pessoa.endereco.rua}}" placeholder="{{pessoa.endereco.rua}}" disabled="true">
+      <input class="col-sm" type="text" name="numero" value="{{pessoa.endereco.numero}}" placeholder="{{pessoa.endereco.numero}}" disabled="true">
+      <input class="col-sm" type="text" name="complemento" value="{{pessoa.endereco.complemento}}" placeholder="{{pessoa.endereco.complemento}}" disabled="true">
+    </div>
+  </div>
+{% endblock %}

@@ -86,7 +86,7 @@ def perfil(request):
     pessoa_ = pessoa.objects.get(usuario=str(usuario.id))
 
     # criar um local aonde mostra o perfil
-    return render(request, 'perfil/criar_perfil.html')
+    return render(request, 'perfil/ver_perfil.html', {"pessoa": pessoa_})
 
 
 def nova_disciplina(request):
@@ -224,3 +224,7 @@ def criar_turma_tem_curso(request):
             curso=curso_
         )
     return render(request, 'atribuir/criar_turma_tem_curso.html', {'turmas': turmas, 'cursos': cursos})
+
+
+def turmas(request):
+    return render(request, 'menu/turma.html')
