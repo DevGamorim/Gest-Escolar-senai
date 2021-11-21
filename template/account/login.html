@@ -17,16 +17,16 @@
                         <div class="card">
                             <form class="box" method="post">
                                 
-                                <p> Por favor insira seu login e senha!</p>
+                                <p><b>Por favor insira seu login e senha!</b></p>
                                 {% csrf_token %}
                                 <div id="div_id_login" class="control-group">
-                                    <label for="id_login" class="control-label requiredField">Nome de usuário<span class="asteriskField">*</span></label>
+                                    <label for="id_login" class="control-label requiredField"><b>Nome de usuário</b><span class="asteriskField">*</span></label>
                                     <div class="controls">
                                         <input type="text" name="login" placeholder="Nome de usuário" autocomplete="username" maxlength="150" class="textinput textInput" required id="id_login">
                                     </div>
                                 </div>
                                 <div id="div_id_password" class="control-group">
-                                    <label for="id_password" class="control-label requiredField">Senha<span class="asteriskField">*</span></label>
+                                    <label for="id_password" class="control-label requiredField"><b>Senha</b><span class="asteriskField"><b>*</b></span></label>
                                     <div class="controls">
                                         <input type="password" name="password" placeholder="Senha" autocomplete="current-password" class="textinput textInput" required id="id_password">
                                     </div>
@@ -34,7 +34,7 @@
                                 <div id="div_id_remember" class="control-group">
                                     <div class="controls">
                                         <label for="id_remember" class="checkbox ">
-                                            <input type="checkbox" name="remember" class="checkboxinput" id="id_remember">Lembrar-me</label>
+                                            <input type="checkbox" name="remember" class="checkboxinput" id="id_remember"> <b>Lembrar-me</b></label>
                                     </div>
                                 </div>
                                 <button type="submit">Entrar</button>
