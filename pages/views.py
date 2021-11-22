@@ -12,6 +12,7 @@ from table.models import turma_tem_disciplina, turma_tem_aluno, curso, turma_tem
 # Bibliotecas externas
 
 import json
+from datetime import datetime
 
 
 @method_decorator(login_required, name='dispatch')
@@ -96,7 +97,8 @@ def nova_disciplina(request):
         tudo = json.dumps(tudo)
         tudo = json.loads(tudo)
         print(tudo)
-        prof = professor.objects.get(pessoa=str(tudo['professor']))
+        pessoa_ = pessoa.objects.get(usuario=str(tudo['professor']))
+        prof = professor.objects.get(pessoa=str(pessoa_.id))
         nova_disciplina = disciplina.objects.create(
             nome=tudo['nome'],
             carga_horaria=tudo['carga_horaria'],
@@ -207,8 +209,8 @@ def criar_curso(request):
 def criar_turma_tem_curso(request):
     turmas = turma.objects.all()
     cursos = curso.objects.all()
-    #turma = models.ForeignKey(turma, on_delete=models.CASCADE)
-    #curso = models.ForeignKey(curso, on_delete=models.CASCADE)
+    # turma = models.ForeignKey(turma, on_delete=models.CASCADE)
+    # curso = models.ForeignKey(curso, on_delete=models.CASCADE)
 
     if request.method == 'POST':
         tudo = request.POST.copy()
@@ -226,5 +228,61 @@ def criar_turma_tem_curso(request):
     return render(request, 'atribuir/criar_turma_tem_curso.html', {'turmas': turmas, 'cursos': cursos})
 
 
-def turmas(request):
-    return render(request, 'menu/turma.html')
+def minhas_turmas(request):
+    lista = []
+    user_name = request.user
+    usuario = user.objects.get(username=user_name)
+    pessoa_ = pessoa.objects.get(usuario=str(usuario.id))
+    professor_ = professor.objects.get(pessoa=str(pessoa_.id))
+    disciplinas = disciplina.objects.filter(professor=str(professor_.id))
+    for n in range(0, len(disciplinas)):
+        turmas = turma_tem_disciplina.objects.filter(
+            disciplina=str(disciplinas[n].id))
+        for m in range(0, len(turmas)):
+            print(turmas[m])
+            lista.append(turmas[m])
+    return render(request, 'menu/turma.html', {'disciplinas': lista})
+
+
+def agendar_aula(request, id):
+    horarios = []
+    turma_ = turma_tem_disciplina.objects.get(pk=str(id))
+    horario_ = turma_tem_disciplina.objects.filter(status_agendamento=True)
+    for n in range(0, len(horario_)):
+        dia = horario_[n].data_e_hora
+        dia = dia.strftime("%Y/%m/%d")
+        print(dia)
+        horarios.append(dia)
+    if request.method == 'POST':
+        tudo = request.POST.copy()
+        tudo = json.dumps(tudo)
+        tudo = json.loads(tudo)
+        print(tudo)
+    return render(request, 'menu/agendamento.html', {'turma': turma_, 'horarios': horarios})
+
+
+def notas_e_faltas(request):
+    lista = []
+    user_name = request.user
+    usuario = user.objects.get(username=user_name)
+    pessoa_ = pessoa.objects.get(usuario=str(usuario.id))
+    professor_ = professor.objects.get(pessoa=str(pessoa_.id))
+    disciplinas = disciplina.objects.filter(professor=str(professor_.id))
+    for n in range(0, len(disciplinas)):
+        turmas = turma_tem_disciplina.objects.filter(
+            disciplina=str(disciplinas[n].id))
+        for m in range(0, len(turmas)):
+            print(turmas[m])
+            lista.append(turmas[m])
+    return render(request, 'menu/notas_e_faltas.html', {'disciplinas': lista})
+
+
+def lista_alunos_notas_e_faltas(request, id):
+    alunos = turma_tem_aluno.objects.filter(turma=str(id))
+    return render(request, 'menu/lista_alunos_notas_e_faltas.html', {'alunos': alunos})
+
+
+def visualizar_notas(request, id):
+    alunos = turma_tem_aluno.objects.filter(turma=str(id))
+    turmas = turma.objects.get(turma_tem_aluno=str(id))
+    return render(request, 'menu/lista_alunos_notas_e_faltas.html', {'alunos': alunos})

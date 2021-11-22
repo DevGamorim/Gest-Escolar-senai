@@ -1,0 +1,21 @@
+
+{% extends 'base_menu.html' %}
+{% load crispy_forms_tags %}
+{% block title%}Turmas{% endblock %}
+{% block content %}
+
+<div class="container">
+	<center><h1>Alunos</h1></center>
+	<div class="row">
+		<p class="col-sm texto_preto">Aluno</p>
+		<p class="col-sm texto_preto">E-mail</p>
+	</div>
+	{% for aluno_ in alunos %}
+	<div class="row">
+		<span class="col-sm"><a href="/notas/visualizar/{{aluno_.id}}">{{aluno_.aluno.pessoa.nome}}</a></span>
+		<span class="col-sm">{{aluno_.aluno.pessoa.usuario.email}}</span>
+	</div>
+	{% endfor %}
+</div>
+	
+{% endblock %}

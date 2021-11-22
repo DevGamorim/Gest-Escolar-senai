@@ -90,6 +90,8 @@ class turma_tem_disciplina(models.Model):
     id = models.AutoField(primary_key=True)
     disciplina = models.ForeignKey(disciplina, on_delete=models.CASCADE)
     turma = models.ForeignKey(turma, on_delete=models.CASCADE)
+    data_e_hora = models.DateTimeField(unique=False, null=True)
+    status_agendamento = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

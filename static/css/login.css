@@ -2,13 +2,14 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background: linear-gradient(to right, #801c19, #1D7F85)
+    background: linear-gradient(to right, #038C73, #F2C572)
 }
 
 .card {
     margin-bottom: 20px;
     border: none
 }
+
 
 .box {
     border-radius: 20%;
@@ -17,7 +18,8 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    background: #5b6c80;
+    background: #f2e088;
+    background-color:rgba(242, 224, 136, 0.5);
     ;
     text-align: center;
     transition: 0.25s;
@@ -54,14 +56,12 @@ body {
 
 .box button[type="submit"] {
     border: 0;
-    background: none;
     display: block;
     margin: 20px auto;
     text-align: center;
     border: 2px solid #2ecc71;
     padding: 14px 40px;
     outline: none;
-    color: white;
     border-radius: 24px;
     transition: 0.25s;
     cursor: pointer
