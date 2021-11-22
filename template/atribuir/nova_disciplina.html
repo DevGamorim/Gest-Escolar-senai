@@ -1,21 +1,29 @@
-{% extends 'base.html' %}
+{% extends 'base_menu.html' %}
 {% load crispy_forms_tags %}
-{% block title%}Cadastro{% endblock %}
+{% block title%}Disciplina{% endblock %}
 {% block content %}
-<h2>Cadastro</h2>
+<center><h2>Nova Disciplina</h2></center>
 <form method="post">
   <div class="container">
     {% csrf_token %}
-    <input type="text" name="nome" placeholder="nome" />
-    <input type="number" name="carga_horaria" placeholder="carga_horaria" />
-    <select name="professor">
-      <option value=" ">----------------</option>
-      {% for prof in professor %}
-        <option value="{{prof.id}}">{{prof.first_name}} {{prof.last_name}}</option>
-      {% endfor %}
-    </select>
+    <div class="row">
+      <span class="col-sm text_preto"><b>Nome Disciplina</b></span>
+      <span class="col-sm text_preto"><b>Carga Horaria</b></span>
+      <span class="col-sm text_preto"><b>Professor</b></span>
+    </div>
+    <div class="row" style="padding-bottom: 20px;">
+      <input class="col-sm" type="text" name="nome" placeholder="nome" />
+      <input class="col-sm" type="number" name="carga_horaria" placeholder="carga_horaria" />
+      <select class="col-sm" name="professor">
+        <option value=" ">----------------</option>
+        {% for prof in professor %}
+          <option value="{{prof.id}}">{{prof.first_name}} {{prof.last_name}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <center><input class="btn btn-success" type="submit" value="salvar" /></center>
 
-  <input type="submit" value="salvar" />
+  
   </div>
 </form>
 {% endblock %}

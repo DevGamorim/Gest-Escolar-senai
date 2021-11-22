@@ -4,6 +4,17 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ .back {
+  background-image: url("https://alaoq.com.br/imagem/outras/image.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.back2{
+  background-color:rgba(242, 224, 136, 0.5);
+}
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;

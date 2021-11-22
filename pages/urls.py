@@ -14,9 +14,9 @@ urlpatterns = [
     path('notas/lancamento/', views.lancamento_nota, name='lancamento_nota'),
 
     path('notas/', views.notas_e_faltas, name='notas_e_faltas'),
-    path('notas/<int:id>/', views.lista_alunos_notas_e_faltas,
+    path('notas/<int:id>/<int:disci>/', views.lista_alunos_notas_e_faltas,
          name='lista_alunos_notas_e_faltas'),
-    path('notas/visualizar/<str:id>/',
+    path('notas/visualizar/<str:id>/<int:disci>/',
          views.visualizar_notas, name='visualizar_notas'),
 
     path('novo/disciplina/', views.nova_disciplina, name='novo_disciplina'),
@@ -34,4 +34,7 @@ urlpatterns = [
          name='criar_turma_tem_curso'),
 
     path('agendar/', views.agendar_aula, name='agendar_aula'),
+
+    path('desempenho/disciplina/',views.desempenho_disciplina , name="desempenho_disciplina"),
+    path('desempenho/disciplina/<int:id>/<int:disci>/',views.desempenho_disciplina_unica , name="desempenho_disciplina_unica"),
 ]

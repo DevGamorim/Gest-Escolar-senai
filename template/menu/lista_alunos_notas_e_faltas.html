@@ -1,7 +1,7 @@
 
 {% extends 'base_menu.html' %}
 {% load crispy_forms_tags %}
-{% block title%}Turmas{% endblock %}
+{% block title%}Alunos{% endblock %}
 {% block content %}
 
 <div class="container">
@@ -12,7 +12,7 @@
 	</div>
 	{% for aluno_ in alunos %}
 	<div class="row">
-		<span class="col-sm"><a href="/notas/visualizar/{{aluno_.id}}">{{aluno_.aluno.pessoa.nome}}</a></span>
+		<span class="col-sm"><a href="/notas/visualizar/{{aluno_.aluno.id}}/{{disciplina}}">{{aluno_.aluno.pessoa.nome}}</a></span>
 		<span class="col-sm">{{aluno_.aluno.pessoa.usuario.email}}</span>
 	</div>
 	{% endfor %}

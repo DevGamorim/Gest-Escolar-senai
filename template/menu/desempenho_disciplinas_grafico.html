@@ -1,0 +1,60 @@
+
+{% extends 'base_menu.html' %}
+{% load crispy_forms_tags %}
+{% block title%}Desempenho{% endblock %}
+{% block content %}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<div class="container" style="padding-bottom: 80px;">
+	<center><h1>{{disciplinas.nome}}</h1></center>
+	<div class="row" style="padding-top: 20px;">
+		<span class="texto_preto col-sm-3"><b>Aluno</b></span>
+		<span class="texto_preto col-sm"><b>Média Nota</b></span>
+		<span class="texto_preto col-sm"><b>Média Faltas</b></span>
+		<span class="texto_preto col-sm"><b>Status</b></span>
+	</div>	
+		{% for lista in lista_notas %}
+		<div class="row">
+			<span class="col-sm-3">{{lista.aluno.pessoa.nome}}</span>
+			<span class="col-sm">{{lista.media}}</span>
+			<span class="col-sm">{{lista.faltas}}</span>
+			<span class="col-sm">{{lista.status}}</span>
+		</div>
+		{% endfor %}
+</div>
+<div class="container" style="padding-bottom: 80px;">
+	<div class="row">
+		<span class="col-sm"><b>Media de Notas Gerais</b></span>
+		<span class="col-sm"><b>Moda de Notas Gerais</b></span>
+		<span class="col-sm"><b>Mediana de Notas Gerais</b></span>
+	</div>
+	<div class="row">
+		<span class="col-sm">{{media_geral}}</span>
+		<span class="col-sm">{{moda}}</span>
+		<span class="col-sm">{{mediana}}</span>
+	</div>
+</div>
+<center>
+	<h2>Grafico de Dispersão</h2>
+	<h3>Média Disciplina</h3>
+<div id="grafico" style="width: 800px;">
+	<script>
+		var garf_1 = {
+			x: [1,2,3,4,5,6,7,8,9,10],
+			y: {{lista_media}},
+			type: 'scatter',
+			name:'Notas',
+			markers: {size:12}
+		}
+		var garf_2 = {
+			x: [1,2,3,4,5,6,7,8,9,10],
+			y: {{lista_falta}},
+			type: 'scatter',
+			name:'Faltas',
+			markers: {size:12}
+		}
+		var data = [garf_1,garf_2]
+		Plotly.newPlot('grafico',data)
+	</script>
+</div></center>
+	
+{% endblock %}

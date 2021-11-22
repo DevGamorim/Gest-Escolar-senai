@@ -1,0 +1,50 @@
+
+{% extends 'base_menu.html' %}
+{% load crispy_forms_tags %}
+{% block title%}Notas{% endblock %}
+{% block content %}
+
+<div class="container">
+	<center><h1>Notas</h1></center>
+	<center><h3>{{aluno.pessoa.nome}}</h3></center>
+	<div class="row" style="padding-top: 20px;">
+		<span class="col-sm">1° Bimestre</span>
+		<span class="col-sm">Faltas 1° Bimestre</span>
+		<span class="col-sm">2° Bimestre</span>		
+		<span class="col-sm">Faltas 2° Bimestre</span>
+	</div>
+	<form method="post">
+		<div class="row">
+			{% csrf_token %}
+			{% if status == 0 %}
+			<input class="col-sm" name="1bimestre" type="number" step="0.01"/>
+			<input class="col-sm" name="1falta" type="number"/>
+			<input class="col-sm" name="2bimestre" type="number" step="0.01"/>
+			<input class="col-sm" name="2falta" type="number"/>
+			{% else %}
+				{% for valores in notas %}
+					{% if status == 1 %}
+						<input class="col-sm" name="1bimestre" type="text" step="0.01" value="{{valores.nota}}" disabled/>
+						<input class="col-sm" name="1falta" type="number" value="{{valores.falta}}" disabled/>
+						<input class="col-sm" name="2bimestre" type="number" step="0.01"/>				
+						<input class="col-sm" name="2falta" type="number"/>
+					{% elif status == 2 %}
+						<input class="col-sm" name="{{valores.id}}bimestre" type="text" step="0.01" value="{{valores.nota}}" disabled/>
+						<input class="col-sm" name="{{valores.id}}falta" type="text" value="{{valores.falta}}" disabled/>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+			{% if status == 0 %}
+			<div class="row" style="padding-top: 10px;">
+				<p class="col-sm"> </p>
+				<p class="col-sm"> </p>
+				<input class="col-sm btn btn-success" type="submit"/>
+				<p class="col-sm"> </p>
+				<p class="col-sm"> </p>
+			</div>
+			{% endif %}
+		</div>
+	</form>
+</div>
+	
+{% endblock %}

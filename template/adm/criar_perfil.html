@@ -1,0 +1,68 @@
+{% extends 'base_menu.html' %}
+{% load crispy_forms_tags %}
+{% block title%}Cadastro{% endblock %}
+{% block content %}
+<center><h2>Cadastro</h2></center>
+<form method="post">
+  <div class="container">
+    {% csrf_token %}
+    <div class="container" style="padding-bottom: 10px;">
+      <div class="row">
+        <span class="col-sm"><b>Username</b></span>
+        <span class="col-sm"><b>Nome</b></span>
+        <span class="col-sm"><b>Sobrenome</b></span>
+        <span class="col-sm"><b>E-mail</b></span>
+        <span class="col-sm"><b>Senha</b></span>
+      </div>
+      <div class="row">
+        <input class="col-sm" type="text" name="username" placeholder="username" />
+        <input class="col-sm" type="text" name="first_name" placeholder="first_name" />
+        <input class="col-sm" type="text" name="last_name" placeholder="last_name" />
+        <input class="col-sm" type="email" name="email" placeholder="email" />
+        <input class="col-sm" type="password" name="password" placeholder="senha" />
+      </div>
+  </div>
+    <div class="container" style="padding-bottom: 10px;">
+      <div class="row">
+        <span class="col-sm"><b>Tipo de Usuario</b></span>
+        <span class="col-sm"><b>N° da Matricula</b></span>
+      </div>
+      <div class="row">
+        <select class="col-sm" name="privilegio">
+          <option value="adm">Administração</option>
+          <option value="aluno">Aluno</option>
+          <option value="prof">Professor</option>
+        </select>
+        <input class="col-sm" type="text" name="matricula" placeholder="matricula" />
+      </div>
+    </div>
+    <div class="container" style="padding-bottom: 10px;">
+      <div class="row">
+        <span class="col-sm"><b>Bairro</b></span>
+        <span class="col-sm"><b>Rua</b></span>
+        <span class="col-sm"><b>Número</b></span>
+        <span class="col-sm"><b>Complemento</b></span>
+      </div>
+      <div class="row">
+        <input class="col-sm" type="text" maxlength="100" name="bairro" placeholder="bairro" />
+        <input class="col-sm" type="text" maxlength="100" name="rua" placeholder="rua"/>
+        <input class="col-sm" type="number" maxlength="5" name="numero" placeholder="numero" />
+        <input class="col-sm" type="text" maxlength="100" name="complemento" placeholder="complemento"/>
+      </div>
+    </div>
+    <div class="container" style="padding-bottom: 10px;">
+      <div class="row">
+        <span class="col-sm"><b>CPF</b></span>
+        <span class="col-sm"><b>Data Nascimento</b></span>
+      </div>
+      <div class="row">
+        <input class="col-sm" type="text" maxlength="14" name="cpf" placeholder="cpf" />
+        <input class="col-sm" type="date" maxlength="100" name="nascimento" placeholder="nascimento"/>
+      </div>
+    </div>
+  </div>
+  
+  <center><input class="btn btn-success" type="submit" value="salvar" /></center>
+</form>
+
+{% endblock %}

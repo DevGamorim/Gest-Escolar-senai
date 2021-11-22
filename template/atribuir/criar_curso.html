@@ -1,19 +1,28 @@
-{% extends 'base.html' %}
+{% extends 'base_menu.html' %}
 {% load crispy_forms_tags %}
-{% block title%}Cadastro{% endblock %}
+{% block title%}Criar curso{% endblock %}
 {% block content %}
-<h2>Cadastro</h2>
+<center><h2>Cadastro Curso</h2></center>
 <form method="post">
   <div class="container">
     {% csrf_token %}
-    <input type="text" name="nome" placeholder="nome curso">
-    <select name="tipo" placeholder="Tipo de curso">
-      <option value="1">Profissionalizante</option>
-      <option value="2">Tecnico</option>
-      <option value="3">Graduação</option>
-    </select>
+    <div class="row">
+      <span class="text_preto col-sm-4"><b>Nome Curso</b></span>
+      <span class="text_preto col-sm"><b></b></span>
+      <span class="text_preto col-sm-4"><b>Tipo Curso</b></span>
+    </div>
+    <div class="row" style="padding-bottom: 20px;">
+      <input class="col-sm-4" type="text" name="nome" placeholder="Nome Curso">
+      <span class="text_preto col-sm"><b></b></span>
+      <select class="col-sm-4" name="tipo" placeholder="Tipo de curso">
+        <option value="1">Profissionalizante</option>
+        <option value="2">Tecnico</option>
+        <option value="3">Graduação</option>
+      </select>
+    </div>
+    
 
-  <input type="submit" value="salvar" />
+    <center><input class="btn btn-success" type="submit" value="salvar" /></center>
   </div>
 </form>
 {% endblock %}

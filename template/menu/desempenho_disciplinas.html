@@ -1,7 +1,7 @@
 
 {% extends 'base_menu.html' %}
 {% load crispy_forms_tags %}
-{% block title%}Turmas{% endblock %}
+{% block title%}Desempenho{% endblock %}
 {% block content %}
 
 <div class="container">
@@ -13,8 +13,8 @@
 	</div>
 	{% for disc in disciplinas %}
 	<div class="row">
-		<span class="col-sm"><a href="/notas/{{disc.turma.id}}/{{disc.disciplina.id}}">{{disc.disciplina.nome}}</a></span>
-		<span class="col-sm"><a href="/notas/{{disc.turma.id}}/{{disc.disciplina.id}}">{{disc.turma.nome}}</a></span>		
+		<span class="col-sm"><a href="/desempenho/disciplina/{{disc.turma.id}}/{{disc.disciplina.id}}">{{disc.disciplina.nome}}</a></span>
+		<span class="col-sm"><a href="/desempenho/disciplina/{{disc.turma.id}}/{{disc.disciplina.id}}">{{disc.turma.nome}}</a></span>		
 	</div>
 	{% endfor %}
 </div>

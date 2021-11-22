@@ -1,4 +1,4 @@
-{% load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -23,12 +23,15 @@
         
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
     <!--<link rel="stylesheet" href="{% static 'css/login.css' %}"> -->
     <style>
         .texto_preto {
             color: black;
-        }
+        },
+        
     </style>
+
     <title>{% block title %}{% endblock %}</title>
 </head>
 <header>
@@ -46,6 +49,7 @@
             <div class="p-4 pt-5">
                 <h1><a href="{% url 'pages:home' %}" class="logo">Inicio</a></h1>
                 <ul class="list-unstyled components mb-5">
+                    {% if user.is_authenticated %}
                     <li class="active">
                         {% if user.privilegio == 'prof' %}
                             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Turmas</a>
@@ -56,10 +60,57 @@
                                 <li>
                                     <a href="{% url 'pages:notas_e_faltas' %}">Notas e Faltas</a>
                                 </li>
-                            </ul>                  
+                                
+                            </ul>
+                            <li>
+                                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Desempenho</a>
+                                <ul class="collapse list-unstyled" id="pageSubmenu">
+                                    <li>
+                                        <a href="{% url 'pages:desempenho_disciplina' %}">Disciplinas</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'pages:notas_e_faltas' %}">Alunos</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% elif user.privilegio == 'adm' %}
+                                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Perfil</a>
+                                <ul class="collapse list-unstyled" id="homeSubmenu">
+                                    <li>
+                                        <a href="{% url 'pages:perfil_criar_user' %}">Criar</a>
+                                    </li>                                
+                                </ul>
+
+                                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Disciplinas</a>
+                                <ul class="collapse list-unstyled" id="pageSubmenu">
+                                    <li>
+                                        <a href="{% url 'pages:novo_disciplina' %}">Criar</a>
+                                    </li>
+                                </ul>
+
+                                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Curso</a>
+                                <ul class="collapse list-unstyled" id="pageSubmenu">
+                                    <li>
+                                        <a href="{% url 'pages:criar_curso' %}">Criar</a>
+                                    </li>
+                                </ul>
+
+                                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Turmas</a>
+                                <ul class="collapse list-unstyled" id="pageSubmenu">
+                                    <li>
+                                        <a href="{% url 'pages:criar_turma' %}">Criar</a>
+                                    </li>
+                                </ul>
                         {% endif %}
                     </li>
-
+                    <li>
+                        <a class="nav-link" href="{% url 'account_logout' %}">Sair</a>
+                    </li> 
+                        {% else %} 
+                            <li>
+                                <a class="nav-link" href="{% url 'account_login' %}">Entrar</a>
+                            </li>
+                        {% endif %}
                 </ul>
 
             </div>

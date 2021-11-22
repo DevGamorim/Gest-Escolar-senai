@@ -1,7 +1,7 @@
 
 {% extends 'base_menu.html' %}
 {% load crispy_forms_tags %}
-{% block title%}Turmas{% endblock %}
+{% block title%}Agendamento{% endblock %}
 {% block content %}
 
 <div class="container">
@@ -24,7 +24,8 @@
 				<p class="col-sm-03 texto_preto"> </p>
 			</div>
 			<div class="row">
-				<input type="date" name="date" class="form-control" placeholder="" required readonly>
+				<input name="disciplina" value="{{turma.id}}" hidden>
+				<input type="date" name="date" class="form-control" placeholder="">
 				<input type="submit" value="Agendar">
 			</div>
 		</form>

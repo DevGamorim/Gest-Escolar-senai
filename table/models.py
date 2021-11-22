@@ -46,20 +46,19 @@ class professor(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
+class aluno(models.Model):
+    id = models.AutoField(primary_key=True)
+    pessoa = models.ForeignKey(pessoa, on_delete=models.CASCADE)
+    matricula = models.CharField(max_length=100)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 class disciplina(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=150)
     carga_horaria = models.IntegerField()
     professor = models.ForeignKey(professor, on_delete=models.CASCADE)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-
-class aluno(models.Model):
-    id = models.AutoField(primary_key=True)
-    pessoa = models.ForeignKey(pessoa, on_delete=models.CASCADE)
-    matricula = models.CharField(max_length=100)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
