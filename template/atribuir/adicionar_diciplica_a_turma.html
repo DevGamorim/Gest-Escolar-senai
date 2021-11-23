@@ -1,25 +1,37 @@
-{% extends 'base.html' %}
+{% extends 'base_menu.html' %}
 {% load crispy_forms_tags %}
 {% block title%}Cadastro{% endblock %}
 {% block content %}
-<h2>Cadastro</h2>
+<center><h2>Cadastro</h2></center>
 <form method="post">
   <div class="container">
     {% csrf_token %}
-    <select name="turma">
-      <option value=" "> </option>
-      {% for turma in turmas %}
-        <option value="{{turma.id}}">{{turma.nome}}</option>
-      {% endfor %}
-    </select>
-    <select name="disciplina">
-      <option value=" "> </option>
-      {% for disciplina in disciplinas %}
-        <option value="{{disciplina.id}}">{{disciplina.nome}}</option>
-      {% endfor %}
-    </select>
+    <div class="row">
+      <span class="text_preto col-sm-4"><b>Turma</b></span>
+      <span class="text_preto col-sm-4"><b></b></span>
+      <span class="text_preto col-sm-4"><b>Disciplina</b></span>
+      <span class="text_preto col-sm-4"><b></b></span>
+    </div>
+    <div class="row">
+      <select class="col-sm" name="turma">
+        <option value="col-sm-4"> </option>
+        {% for turma in turmas %}
+          <option value="{{turma.id}}">{{turma.nome}}</option>
+        {% endfor %}
+      </select>
+      <span class="text_preto col-sm-4"><b></b></span>
+      <select class="col-sm-4" name="disciplina">
+        <option value=" "> </option>
+        {% for disciplina in disciplinas %}
+          <option value="{{disciplina.id}}">{{disciplina.nome}}</option>
+        {% endfor %}
+      </select>
+      <span class="text_preto col-sm-4"><b></b></span>
+    </div>
+    
+    
 
-  <input type="submit" value="salvar" />
+    <center><input class="btn btn-success" type="submit" value="salvar" /></center>
   </div>
 </form>
 {% endblock %}

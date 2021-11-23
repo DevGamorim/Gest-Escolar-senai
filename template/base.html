@@ -73,7 +73,7 @@
                                     </li>
                                 </ul>
                             </li>
-                        {% elif user.privilegio == 'adm' %}
+                            {% elif user.privilegio == 'adm' %}
                             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Perfil</a>
                             <ul class="collapse list-unstyled" id="homeSubmenu">
                                 <li>
@@ -81,7 +81,29 @@
                                 </li>                                
                             </ul>
 
-                        {% endif %}
+                            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Disciplinas</a>
+                            <ul class="collapse list-unstyled" id="pageSubmenu">
+                                <li>
+                                    <a href="{% url 'pages:novo_disciplina' %}">Criar</a>
+                                </li>
+                            </ul>
+
+                            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Curso</a>
+                            <ul class="collapse list-unstyled" id="pageSubmenu">
+                                <li>
+                                    <a href="{% url 'pages:criar_curso' %}">Criar</a>
+                                </li>
+                            </ul>
+
+                            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Turmas</a>
+                            <ul class="collapse list-unstyled" id="pageSubmenu">
+                                <li>
+                                    <a href="{% url 'pages:criar_turma' %}">Criar</a>
+                                    <a href="{% url 'pages:adicionar_diciplica_a_turma' %}">Adicionar Disciplina</a>
+                                </li>
+                            </ul>
+                            
+                    {% endif %}
                     </li>
                     <li>
                         <a class="nav-link" href="{% url 'account_logout' %}">Sair</a>
