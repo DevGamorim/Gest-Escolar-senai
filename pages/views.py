@@ -269,6 +269,7 @@ def agendar_aula(request, id):
         print(data)
         turma_.data_e_hora = data
         turma_.save()
+        minhas_turmas(request)
     return render(request, 'menu/agendamento.html', {'turma': turma_, 'horarios': horarios})
 
 
