@@ -2,24 +2,36 @@
 {% load crispy_forms_tags %}
 {% block title%}Cadastro{% endblock %}
 {% block content %}
-<h2>Cadastro</h2>
+<center><h2>Adicionar Alunos</h2></center>
 <form method="post">
   <div class="container">
     {% csrf_token %}
-    <select name="turma">
-      <option value=" "> </option>
-      {% for turma in turmas %}
-        <option value="{{turma.id}}">{{turma.nome}}</option>
-      {% endfor %}
-    </select>
-    <select name="aluno">
-      <option value=" "> </option>
-      {% for aluno in alunos %}
-        <option value="{{aluno.id}}">{{aluno.pessoa.nome}}</option>
-      {% endfor %}
-    </select>
+    <div class="row">
+      <p class="col-sm-4 texto_preto"><b>Turma</b></p>
+      <p class="col-sm-4 texto_preto"><b></b></p>
+      <p class="col-sm-4 texto_preto"><b>Aluno</b></p>]
+      <p class="col-sm-4 texto_preto"><b></b></p>
+    </div>
+    <div class="row">
+      <select class="col-sm-4" name="turma">
+        <option value=" "> </option>
+        {% for turma in turmas %}
+          <option value="{{turma.id}}">{{turma.nome}}</option>
+        {% endfor %}
+      </select>
+      <p class="col-sm-4 texto_preto"><b>Turma</b></p>
+      <select class="col-sm-4" name="aluno">
+        <option value=" "> </option>
+        {% for aluno in alunos %}
+          <option value="{{aluno.id}}">{{aluno.pessoa.nome}}</option>
+        {% endfor %}
+      </select>
+      <p class="col-sm-4 texto_preto"><b>Turma</b></p>
+    </div>
+    
+    
 
-  <input type="submit" value="salvar" />
+  <center><input class="btn btn-success" type="submit" value="salvar" /></center>
   </div>
 </form>
 {% endblock %}
