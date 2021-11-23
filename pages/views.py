@@ -269,7 +269,19 @@ def agendar_aula(request, id):
         print(data)
         turma_.data_e_hora = data
         turma_.save()
-        minhas_turmas(request)
+        lista = []
+        user_name = request.user
+        usuario = user.objects.get(username=user_name)
+        pessoa_ = pessoa.objects.get(usuario=str(usuario.id))
+        professor_ = professor.objects.get(pessoa=str(pessoa_.id))
+        disciplinas = disciplina.objects.filter(professor=str(professor_.id))
+        for n in range(0, len(disciplinas)):
+            turmas = turma_tem_disciplina.objects.filter(
+                disciplina=str(disciplinas[n].id))
+            for m in range(0, len(turmas)):
+                print(turmas[m])
+                lista.append(turmas[m])
+        return render(request, 'menu/turma.html', {'disciplinas': lista})
     return render(request, 'menu/agendamento.html', {'turma': turma_, 'horarios': horarios})
 
 
