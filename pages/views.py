@@ -284,7 +284,9 @@ def agendar_aula(request, id):
                     print(turmas[m])
                     lista.append(turmas[m])
             return render(request, 'menu/turma.html', {'disciplinas': lista})
-    return render(request, 'menu/agendamento.html', {'turma': turma_, 'horarios': horarios})
+        else:
+            return render(request, 'menu/agendamento.html', {'turma': turma_, 'horarios': horarios,'alerta':'Data ja indisponivel!'})
+    return render(request, 'menu/agendamento.html', {'turma': turma_, 'horarios': horarios,})
 
 
 def notas_e_faltas(request):

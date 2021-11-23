@@ -3,7 +3,11 @@
 {% load crispy_forms_tags %}
 {% block title%}Agendamento{% endblock %}
 {% block content %}
-
+{% if alerta == 'Data ja indisponivel!' %}
+<script>
+	alert("Data ja indisponivel!");
+</script>
+{% endif %}
 <div class="container">
 	<center><h1>Agendamento</h1></center>
 	<div class="container">
