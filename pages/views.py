@@ -140,7 +140,19 @@ def lancamento_nota(request):
             aluno=aluno_,
             disciplina=disciplina_
         )
-
+        lista = []
+        user_name = request.user
+        usuario = user.objects.get(username=user_name)
+        pessoa_ = pessoa.objects.get(usuario=str(usuario.id))
+        professor_ = professor.objects.get(pessoa=str(pessoa_.id))
+        disciplinas = disciplina.objects.filter(professor=str(professor_.id))
+        for n in range(0, len(disciplinas)):
+            turmas = turma_tem_disciplina.objects.filter(
+                disciplina=str(disciplinas[n].id))
+            for m in range(0, len(turmas)):
+                print(turmas[m])
+                lista.append(turmas[m])
+        return render(request, 'menu/notas_e_faltas.html', {'disciplinas': lista})
     return render(request, 'atribuir/nova_nota.html', {"alunos": usuario, "disciplinas": disc})
 
 
@@ -286,7 +298,7 @@ def agendar_aula(request, id):
             return render(request, 'menu/turma.html', {'disciplinas': lista})
         else:
             return render(request, 'menu/agendamento.html', {'turma': turma_, 'horarios': horarios,'alerta':'Data ja indisponivel!'})
-    return render(request, 'menu/agendamento.html', {'turma': turma_, 'horarios': horarios,})
+    return render(request, 'menu/agendamento.html', {'turma': turma_, 'horarios': horarios, 'alerta':'x'})
 
 
 def notas_e_faltas(request):
