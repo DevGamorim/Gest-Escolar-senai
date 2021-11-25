@@ -17,6 +17,7 @@ import statistics
 import math
 from scipy import stats
 import numpy
+import pytz
 from collections import Counter
 
 
@@ -247,6 +248,7 @@ def criar_turma_tem_curso(request):
 
 def minhas_turmas(request):
     lista = []
+
     user_name = request.user
     usuario = user.objects.get(username=user_name)
     pessoa_ = pessoa.objects.get(usuario=str(usuario.id))
@@ -256,6 +258,16 @@ def minhas_turmas(request):
         turmas = turma_tem_disciplina.objects.filter(
             disciplina=str(disciplinas[n].id))
         for m in range(0, len(turmas)):
+            data = turmas[m].data_e_hora
+            hoje = ""
+            hoje = str(datetime.today())
+            hoje = hoje[:10] + " 17:10:00"
+            local_tz = pytz.timezone('America/Sao_Paulo')
+            hoje = datetime.strptime(
+                hoje, '%Y-%m-%d %H:%M:%S').replace(tzinfo=pytz.utc).astimezone(local_tz)
+            if data != None and data < hoje:
+                turmas[m].data_e_hora = None
+                turmas[m].save()
             print(turmas[m])
             lista.append(turmas[m])
     return render(request, 'menu/turma.html', {'disciplinas': lista})
@@ -288,17 +300,27 @@ def agendar_aula(request, id):
             usuario = user.objects.get(username=user_name)
             pessoa_ = pessoa.objects.get(usuario=str(usuario.id))
             professor_ = professor.objects.get(pessoa=str(pessoa_.id))
-            disciplinas = disciplina.objects.filter(professor=str(professor_.id))
+            disciplinas = disciplina.objects.filter(
+                professor=str(professor_.id))
             for n in range(0, len(disciplinas)):
                 turmas = turma_tem_disciplina.objects.filter(
                     disciplina=str(disciplinas[n].id))
                 for m in range(0, len(turmas)):
-                    print(turmas[m])
+                    data = turmas[m].data_e_hora
+                    hoje = ""
+                    hoje = str(datetime.today())
+                    hoje = hoje[:10] + " 17:10:00"
+                    local_tz = pytz.timezone('America/Sao_Paulo')
+                    hoje = datetime.strptime(
+                        hoje, '%Y-%m-%d %H:%M:%S').replace(tzinfo=pytz.utc).astimezone(local_tz)
+                    if data != None and data < hoje:
+                        turmas[m].data_e_hora = None
+                        turmas[m].save()
                     lista.append(turmas[m])
             return render(request, 'menu/turma.html', {'disciplinas': lista})
         else:
-            return render(request, 'menu/agendamento.html', {'turma': turma_, 'horarios': horarios,'alerta':'Data ja indisponivel!'})
-    return render(request, 'menu/agendamento.html', {'turma': turma_, 'horarios': horarios, 'alerta':'x'})
+            return render(request, 'menu/agendamento.html', {'turma': turma_, 'horarios': horarios, 'alerta': 'Data ja indisponivel!'})
+    return render(request, 'menu/agendamento.html', {'turma': turma_, 'horarios': horarios, 'alerta': 'x'})
 
 
 def notas_e_faltas(request):
@@ -325,21 +347,21 @@ def lista_alunos_notas_e_faltas(request, id, disci):
         tudo = json.dumps(tudo)
         tudo = json.loads(tudo)
         print(tudo)
-    return render(request, 'menu/lista_alunos_notas_e_faltas.html', {'alunos': alunos,'disciplina':disci})
+    return render(request, 'menu/lista_alunos_notas_e_faltas.html', {'alunos': alunos, 'disciplina': disci})
 
 
 def visualizar_notas(request, id, disci):
     aluno_ = aluno.objects.get(pk=id)
-    notas = nota.objects.filter(aluno=id , disciplina = disci) 
+    notas = nota.objects.filter(aluno=id, disciplina=disci)
     if request.method == 'POST':
         tudo = request.POST.copy()
         tudo = json.dumps(tudo)
         tudo = json.loads(tudo)
         print(tudo)
-    
+
         aluno_ = aluno.objects.get(pk=id)
         disciplina_ = disciplina.objects.get(pk=disci)
-        
+
         if len(tudo['1bimestre']) >= 1:
             if len(tudo['1falta']) >= 1:
                 notas = nota.objects.create(
@@ -350,10 +372,10 @@ def visualizar_notas(request, id, disci):
                     disciplina=disciplina_
                 )
             else:
-                return render(request, 'menu/visualizar_nota.html', {'notas': notas,'status':len(notas),'aluno':aluno_})
+                return render(request, 'menu/visualizar_nota.html', {'notas': notas, 'status': len(notas), 'aluno': aluno_})
         else:
-            return render(request, 'menu/visualizar_nota.html', {'notas': notas,'status':len(notas),'aluno':aluno_})
-        
+            return render(request, 'menu/visualizar_nota.html', {'notas': notas, 'status': len(notas), 'aluno': aluno_})
+
         if len(tudo['2bimestre']) >= 1:
             if len(tudo['2falta']) >= 1:
                 notas = nota.objects.create(
@@ -364,12 +386,12 @@ def visualizar_notas(request, id, disci):
                     disciplina=disciplina_
                 )
             else:
-                return render(request, 'menu/visualizar_nota.html', {'notas': notas,'status':len(notas),'aluno':aluno_})
+                return render(request, 'menu/visualizar_nota.html', {'notas': notas, 'status': len(notas), 'aluno': aluno_})
         else:
-            return render(request, 'menu/visualizar_nota.html', {'notas': notas,'status':len(notas),'aluno':aluno_})
-        notas = nota.objects.filter(aluno=id , disciplina = disci) 
-    
-    return render(request, 'menu/visualizar_nota.html', {'notas': notas,'status':len(notas),'aluno':aluno_})
+            return render(request, 'menu/visualizar_nota.html', {'notas': notas, 'status': len(notas), 'aluno': aluno_})
+        notas = nota.objects.filter(aluno=id, disciplina=disci)
+
+    return render(request, 'menu/visualizar_nota.html', {'notas': notas, 'status': len(notas), 'aluno': aluno_})
 
 
 def desempenho_disciplina(request):
@@ -388,15 +410,21 @@ def desempenho_disciplina(request):
     return render(request, 'menu/desempenho_disciplinas.html', {'disciplinas': lista})
 
 
-def desempenho_disciplina_unica (request, id, disci):
+def desempenho_disciplina_unica(request, id, disci):
     lista_notas = []
     lista_falta = []
     lista_media = []
+    lista_primeiro = []
+    lista_segundo = []
     data = {}
     disciplinas = disciplina.objects.get(pk=disci)
-    notas = nota.objects.filter(disciplina = disci).order_by("aluno")
-    for n in range(0,len(notas)):
+    notas = nota.objects.filter(disciplina=disci).order_by("aluno")
+    for n in range(0, len(notas)):
         nota_ = notas[n]
+        if nota_.bimestre == 1:
+            lista_primeiro.append(nota_.nota)
+        else:
+            lista_segundo.append(nota_.nota)
         if n == 0:
             nota_antiga = nota_
         else:
@@ -407,7 +435,7 @@ def desempenho_disciplina_unica (request, id, disci):
                 media_falta = media_falta/2
                 lista_falta.append(media_falta)
                 lista_media.append(media)
-                
+
                 if media >= 60:
                     data['aluno'] = nota_.aluno
                     data['media'] = media
@@ -425,9 +453,9 @@ def desempenho_disciplina_unica (request, id, disci):
         media_geral = 0
     for n in range(len(lista_media)):
         media_geral += lista_media[n]
-    
+
     media_geral = media_geral/len(lista_media)
     moda = statistics.mode(lista_media)
     mediana = statistics.median(lista_media)
     print(lista_media)
-    return render(request, 'menu/desempenho_disciplinas_grafico.html',{'lista_falta':lista_falta,'lista_media':lista_media,'notas':notas,'disciplinas':disciplinas,"lista_notas":lista_notas,'media_geral':media_geral,'moda':moda,'mediana':mediana})
+    return render(request, 'menu/desempenho_disciplinas_grafico.html', {'lista_segundo': lista_segundo, 'lista_primeiro': lista_primeiro, 'lista_falta': lista_falta, 'lista_media': lista_media, 'notas': notas, 'disciplinas': disciplinas, "lista_notas": lista_notas, 'media_geral': media_geral, 'moda': moda, 'mediana': mediana})

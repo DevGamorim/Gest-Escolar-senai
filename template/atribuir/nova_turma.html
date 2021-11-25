@@ -2,21 +2,34 @@
 {% load crispy_forms_tags %}
 {% block title%}Cadastro{% endblock %}
 {% block content %}
-<h2>Cadastro</h2>
+<center><h2>Cadastro</h2></center>
 <form method="post">
   <div class="container">
     {% csrf_token %}
-    <input type="text" name="nome" placeholder="nome" />
-     <select name="semestre">
-      <option value=" "> </option>
+    
+    <div class="row">
+      <p class="col-sm-3 text_preto"><b>Nome da Turma</b></p>
+      <p class="col-sm text_preto"><b></b></p>
+      <p class="col-sm-3 text_preto"><b>Inicio</b></p>
+      <p class="col-sm text_preto"><b></b></p>
+    </div>
+
+    <div class="row" style="padding-bottom: 20px">
+      <input class="col-sm-3" type="text" name="nome" placeholder="Nome" />
+      <p class="col-sm text_preto"><b></b></p>
+      <select class="col-sm-3" name="semestre">
+        <option  value=" "> </option>
         <option value="1">1° Bimestre</option>
         <option value="2">2° Bimestre</option>
         <option value="3">3° Bimestre</option>
         <option value="4">4° Bimestre</option>
-    </select>
+      </select>
+      <p class="col-sm text_preto"><b></b></p>
+    </div>
+
     
 
-  <input type="submit" value="salvar" />
+  <center><input class="btn btn-success" type="submit" value="salvar" /></center>
   </div>
 </form>
 {% endblock %}
